@@ -50,7 +50,10 @@ def main():
     print("Differential component: " + str(kd*diffntl))
     print("Control output:         " + str(output))
 
-    while input("Press Enter to continue...") is None:
+    while True:
+        chk = input("Press Enter to iterate...")
+        if chk != "":
+            break
         interval += delta
         print("interval: ", interval)
         measurement = measure(output, measurement)
