@@ -31,7 +31,7 @@ def main():
     err1 = err2
     output = outputcalc(kp, ki, kd, err1, integral, diffntl)
 
-    while fabs(err2) > 0.00001:
+    while fabs(err2) > 0.000001:
         interval += delta
         measurement = measure(output, measurement)
         err2 = calc_err(setpoint, measurement)
