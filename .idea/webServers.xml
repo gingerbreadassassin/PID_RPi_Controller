@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="935fee87-d571-4196-8c4d-365372d1a7ab" name="RaspberryPi" url="http://piness.lan">
+        <fileTransfer host="piness.lan" port="22" rootFolder="/home/connor" accessType="SFTP" password="dfeedfdadfcfdfdadfdadfcfdfd8df98df9adf9bdf9c" username="connor">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="RaspberryPi" uploadOnCheckin="935fee87-d571-4196-8c4d-365372d1a7ab">
+    <serverData>
+      <paths name="RaspberryPi">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/Projects/Dev/pwmfancontrol" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="RaspberryPi" />
+  </component>
+</project>
