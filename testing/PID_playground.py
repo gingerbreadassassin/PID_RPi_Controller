@@ -35,14 +35,8 @@ def main():
         interval += delta
         measurement = measure(output, measurement)
         err2 = calc_err(setpoint, measurement)
-        if fabs(err2) < 0.000001:
-            err2 = 0
         integral += err1*delta
-        if fabs(integral) < 0.000001:
-            integral = 0
         diffntl = differential(err1, err2, delta)
-        if fabs(diffntl) < 0.000001:
-            diffntl = 0
         output = outputcalc(kp, ki, kd, err1, integral, diffntl)
         err1 = err2
 
