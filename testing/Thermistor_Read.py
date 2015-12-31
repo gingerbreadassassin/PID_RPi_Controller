@@ -4,6 +4,13 @@ import time, math, pigpio
 
 pi = pigpio.pi()
 
+def resistance_calc(us, nf): # microsecond, nanoFarads
+    t = us*1e-6
+    c = nf*1e-9
+    v = 1 - ((22.0/15.0)/3.3) # gpio high trigger voltage / supply voltage
+    lnv = math.log1p(v-1) # log1p is natural log (1+x)
+    return -t / (c * lnv)
+
 def resistance_reading():
     total = 0
     for i in range(1, 100):
@@ -16,30 +23,30 @@ def resistance_reading():
         pi.set_mode(24, pigpio.INPUT)
         pi.set_mode(23, pigpio.OUTPUT)
         pi.write(23, 1)
-        t1 = time.time()
+        # t1 = time.time()
+        t1 = pi.get_current_tick()
         while not pi.read(24):              # while pin reads nothing:
             pass                            #   do nothing
-        t2 = time.time()
-        # Record time interval and sum
-        total += (t2-t1)*1000000
+        # t2 = time.time()
+        t2 = pi.get_current_tick()
+        # Record time interval in microseconds and sum
+        total += pigpio.tickDiff(t1, t2)
     # Average time readings
     reading = total / 100
     # Convert average time reading to resistance
-    resistance = reading * 6.05 - 1739 # Use a multimeter to adjust this second value
-    return resistance
+    print(resistance_calc(reading, 330))
+    return resistance_calc(reading, 330) # pass average time, capacitance in nanoFarads
 
 def temperature_reading(r):
-    b = 3435.0 # beta value from NTC Thermistor TTF3A103_34D
-    r0 = 10000 # 10 KiloOhms @ 25deg Celsius
-    t0 = 273.15 # degrees Kelvin at 0deg C
-    t25 = t0 + 25.0 # 25deg C in K
-    # Steinhart-Hart equation
-    inv_t = 1/t25 + 1/b * math.log(r/r0)
-    t = (1/inv_t - t0) * 1.0 # Adjustment value
-    return t * 9.0 / 5.0 + 32.0 # Conversion C to F
+    lr = math.log1p(r-1)
+    # Steinhart-Hart equation using coefficients from bitspower thermistor probe
+    tk = 1 / (0.000428670876749269 + 0.000322025554873117 * lr + -4.959174377042198e-8 * lr * lr * lr)
+    tc = tk - 273.15 # Conversion K to C
+    tf = tc * 9.0 / 5.0 + 32.0 # Conversion C to F
+    return tk, tc, tf
 
 try:
-    print(temperature_reading(resistance_reading()))
+    print(temperature_reading(resistance_reading())[2])
 
 except KeyboardInterrupt:
     pi.set_mode(23, 0)
