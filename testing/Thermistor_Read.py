@@ -34,7 +34,7 @@ def resistance_reading():
     # Average time readings
     reading = total / 100
     # Convert average time reading to resistance
-    print(resistance_calc(reading, 330))
+    # print(resistance_calc(reading, 330))
     return resistance_calc(reading, 330) # pass average time, capacitance in nanoFarads
 
 def temperature_reading(r):
@@ -45,11 +45,11 @@ def temperature_reading(r):
     tf = tc * 9.0 / 5.0 + 32.0 # Conversion C to F
     return tk, tc, tf
 
-try:
-    print(temperature_reading(resistance_reading())[2])
+def kelvin():
+    return temperature_reading(resistance_reading())[0]
 
-except KeyboardInterrupt:
-    pi.set_mode(23, 0)
-    pi.set_mode(24, 0)
-    pi.stop()
-    pass
+def celsius():
+    return temperature_reading(resistance_reading())[1]
+
+def fahrenheit():
+    return temperature_reading(resistance_reading())[2]
