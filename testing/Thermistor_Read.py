@@ -17,8 +17,8 @@ def resistance_reading():
         pi.set_mode(23, pigpio.OUTPUT)
         pi.write(23, 1)
         t1 = time.time()
-        while not pi.read(24):
-            pass
+        while not pi.read(24):              # while pin reads nothing:
+            pass                            #   do nothing
         t2 = time.time()
         # Record time interval and sum
         total += (t2-t1)*1000000
