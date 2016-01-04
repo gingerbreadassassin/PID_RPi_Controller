@@ -41,6 +41,8 @@ def temperature_reading(r):
     lr = math.log1p(r-1)
     # Steinhart-Hart equation using coefficients from bitspower thermistor probe
     tk = 1 / (0.000428670876749269 + 0.000322025554873117 * lr + -4.959174377042198e-8 * lr * lr * lr)
+    # Steinhart-Hart equation using coefficients from Maverick ET-733 probe
+    # 1 / (0.0008330460685998971 + 0.00015282913134367004 * lr + 1.5706967097314383e-7 * lr * lr * lr)
     tc = tk - 273.15 # Conversion K to C
     tf = tc * 9.0 / 5.0 + 32.0 # Conversion C to F
     return tk, tc, tf
