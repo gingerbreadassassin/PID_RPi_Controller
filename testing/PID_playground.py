@@ -38,7 +38,7 @@ def main():
         ki = float(input("Enter integral gain: "))
         kd = float(input("Enter differential gain: "))
 
-        # set up variables for bounded exponential growth formula y=C(1-e(-kt))
+        # set up variables for bounded exponential growth formula y=C(1-e^(-kt))
         # note that t was arbitrarily chosen to equal 5.0 to calculate k
         c = fabs(measure_prime - setpoint) * fabs(measure_prime - setpoint + 1.0) + 10.0
         k = ((-1.0/5.0) * log1p((1.0-(measure_prime/c)-1.0)))
